@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, ExpertCategory
 from django.core.validators import RegexValidator
 from django.contrib.auth import authenticate
 
@@ -7,7 +7,13 @@ from django.contrib.auth import authenticate
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'phone', 'email', 'whatsapp_number', 'full_name', 'address', 'pin_code', 'is_vendor')
+        fields = ('id', 'phone', 'email', 'whatsapp_number', 'full_name', 'address', 'pin_code', 'city', 'state','is_vendor')
+
+
+class ExpertCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpertCategory
+        fields = "__all__"
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -15,7 +21,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = (
             'phone', 'whatsapp_number', 'email', 'password', 'confirm_password', 'full_name', 'address', 'pin_code',
-            'is_vendor')
+            'is_vendor', 'city', 'state')
 
     #
     def create(self, validated_data):
@@ -34,7 +40,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = (
-            'phone', 'email', 'full_name', 'address', 'pin_code', 'whatsapp_number')
+            'phone', 'email', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'city', 'state')
 
     def update(self, instance, validated_data):
         # print(validated_data)
@@ -82,7 +88,7 @@ class UpdateVendorUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = (
             'phone', 'email', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'expert_category',
-            'expert_subcategory', 'years_of_experience')
+            'expert_subcategory', 'years_of_experience', 'city', 'state')
 
     def update(self, instance, validated_data):
         # print(validated_data)
@@ -103,6 +109,7 @@ class LoginSerializer(serializers.Serializer):
     )
     phone = serializers.CharField(validators=[phone_regex])
     password = serializers.CharField(style={'input_type': 'password'}, trim_whitespace=False)
+    is_vendor = serializers.BooleanField(default=False)
 
     def validate(self, attrs):
         phone = attrs.get('phone')
@@ -111,11 +118,17 @@ class LoginSerializer(serializers.Serializer):
         if not phone or not password:
             raise serializers.ValidationError('Please provide both email and password')
         if CustomUser.objects.filter(phone=phone).exists():
+            if attrs.__contains__('is_vendor'):
+                if attrs.get('is_vendor'):
+                    if not CustomUser.objects.filter(phone=phone).first().is_vendor:
+                        raise serializers.ValidationError('Please register as expert!')
             user = authenticate(request=self.context.get('request'), phone=phone, password=password)
 
             if not user:
                 raise serializers.ValidationError('Wrong phone or password')
 
             attrs['user'] = user
+        else:
+            raise serializers.ValidationError('Account not found! Please register')
 
-            return attrs
+        return attrs

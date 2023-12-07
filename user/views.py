@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import *
@@ -53,8 +54,11 @@ class UpdateVendorUserAPI(UpdateAPIView):
 
 
 class LoginAPIView(knox_views.LoginView):
-    permission_classes = (AllowAny,)
+    permission_classes = [AllowAny]
     serializer_class = LoginSerializer
+
+    # def get_permissions(self):
+    #     return [AllowAny]
 
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
@@ -65,3 +69,12 @@ class LoginAPIView(knox_views.LoginView):
         else:
             return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         return Response(response.data, status=status.HTTP_200_OK)
+
+
+class ExpertCategoryMixin(ListModelMixin, GenericAPIView):
+    serializer_class = ExpertCategorySerializer
+    permission_classes = [AllowAny]
+    queryset = ExpertCategory.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

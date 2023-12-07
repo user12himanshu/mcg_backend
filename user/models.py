@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, AbstractUser
+from django.contrib.postgres.fields import ArrayField
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
@@ -53,7 +54,8 @@ class CustomUser(AbstractBaseUser):
         message="Phone number must be entered in the format: '+123456789'. Up to 10 digits allowed."
     )
     file_extension_validator = FileExtensionValidator(allowed_extensions=['pdf', 'png', 'jpg', 'jpeg'])
-    #TODO: Add logic to add country code in phone for both frontend and backend.
+    image_extension_validator = FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg', 'gif'])
+    # TODO: Add logic to add country code in phone for both frontend and backend.
     phone = models.CharField(unique=True, blank=False, null=False, max_length=15, validators=[phone_regex])
     whatsapp_number = models.CharField(blank=False, null=False, max_length=15, validators=[phone_regex])
     email = models.EmailField(unique=True, blank=False, null=False)
@@ -61,16 +63,21 @@ class CustomUser(AbstractBaseUser):
     confirm_password = models.CharField(blank=False, null=False, max_length=100)
     full_name = models.CharField(blank=False, null=False, max_length=100)
     address = models.CharField(blank=False, null=False, max_length=150)
+    city = models.CharField(blank=False, null=False, max_length=150, default='Jabalpur')
+    state = models.CharField(blank=False, null=False, max_length=150, default='Madhya Pradesh')
     pin_code = models.IntegerField(blank=False, null=False, max_length=15)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_vendor = models.BooleanField(default=False)
+    rating = models.IntegerField(default=4, blank=True, null=True)
     otp = models.IntegerField(max_length=6, blank=True, null=True)
     is_otp_verified = models.BooleanField(default=False)
     expert_category = models.ForeignKey(ExpertCategory, null=True, blank=True, on_delete=models.DO_NOTHING)
     expert_subcategory = models.ForeignKey(ExpertSubcategory, null=True, blank=True, on_delete=models.DO_NOTHING)
     years_of_experience = models.IntegerField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True, default=23.1656)
+    longitude = models.FloatField(blank=True, null=True, default=79.943)
     # TODO: Add file size validation to file fields
     aadhar_card = models.FileField(upload_to='uploads/aadhar_card/', validators=[file_extension_validator], null=True,
                                    blank=True)
@@ -78,9 +85,13 @@ class CustomUser(AbstractBaseUser):
                                 blank=True)
     driving_card = models.FileField(upload_to='uploads/driving_card/', validators=[file_extension_validator], null=True,
                                     blank=True)
+    profile_photo = models.ImageField(upload_to='media/profile_photo/', validators=[image_extension_validator],
+                                      null=True,
+                                      blank=True)
 
     USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = ['password', 'confirm_password', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'email']
+    REQUIRED_FIELDS = ['password', 'confirm_password', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'email',
+                       'state', 'city']
 
     objects = UserManager()
 

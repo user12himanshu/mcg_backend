@@ -10,4 +10,5 @@ urlpatterns = [
     path('login/',  LoginAPIView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('logout-all/', LogoutAllView.as_view()),
+    path('experts/', ExpertCategoryMixin.as_view()),
 ]

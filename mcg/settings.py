@@ -16,6 +16,8 @@ from pathlib import Path
 from datetime import timedelta
 
 import environ
+import os
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -47,12 +49,13 @@ INSTALLED_APPS = [
     'knox',
     'user',
     'shop',
-
+    'autofind'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,12 +89,11 @@ WSGI_APPLICATION = 'mcg.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mcgautofind',
-        'USER': 'postgres',
-        'PASSWORD': 'himanshu',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'default': dj_database_url.config(
+            # Feel free to alter this value to suit your needs.
+            default='postgresql://postgres:postgres@localhost:5432/mysite',
+            conn_max_age=600
+        )
     }
 }
 
@@ -118,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -144,3 +146,9 @@ REST_KNOX = {
 }
 
 AUTH_USER_MODEL = 'user.CustomUser'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+MERCHANT_ID = env("MERCHANTID")
+SALT_KEY = env("SALTKEY")
