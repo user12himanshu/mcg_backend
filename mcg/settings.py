@@ -17,7 +17,7 @@ from datetime import timedelta
 
 import environ
 import os
-import dj_database_url
+# import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -89,11 +89,12 @@ WSGI_APPLICATION = 'mcg.wsgi.application'
 
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(
-            # Feel free to alter this value to suit your needs.
-            default='postgresql://postgres:postgres@localhost:5432/mysite',
-            conn_max_age=600
-        )
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mcgautofind',
+        'USER': 'postgres',
+        'PASSWORD': 'himanshu',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
