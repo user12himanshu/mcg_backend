@@ -18,6 +18,7 @@ class ShopMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Lis
         return Shop.objects.filter(owner=user)
 
     def get(self, request, *args, **kwargs):
+        print("working")
         if kwargs.get('pk') is not None:
             return self.retrieve(request, *args, **kwargs)
         return self.list(request, *args, **kwargs)
