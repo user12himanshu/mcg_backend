@@ -86,11 +86,11 @@ class CartItem(models.Model):
 
     @property
     def total_price(self):
-        return float(self.products.sales_price) * float(self.quantity)
+        return "%.2f" %  float(self.products.sales_price) * float(self.quantity)
 
     @property
     def total_price_mrp(self):
-        return float(self.products.price) * float(self.quantity)
+        return "%.2f" % float(self.products.price) * float(self.quantity)
 
     def __str__(self):
         return self.products.name + " " + self.owner.phone
