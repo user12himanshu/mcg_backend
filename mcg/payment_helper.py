@@ -42,9 +42,9 @@ def init_payment(amount, product, owner, phone):
         "merchantTransactionId": str(transaction_id),
         "merchantUserId": owner,
         "amount": amount * 100,
-        "redirectUrl": "http://127.0.0.1:5000/return-to-me",
+        "redirectUrl": "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
         "redirectMode": "POST",
-        "callbackUrl": "wss://ws.postman-echo.com/raw",
+        "callbackUrl": "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
         "mobileNumber": int(phone),
         "paymentInstrument": {
             "type": "PAY_PAGE"
@@ -63,7 +63,7 @@ def init_payment(amount, product, owner, phone):
     }
 
     return {'body': base64String,
-            'callBackURL': "http://mytestsdddd:5000/return-to-me",
+            'callBackURL': "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
             'checksum': checkSum,
             "headers": headers,
             "apiEndPoint": ENDPOINT}

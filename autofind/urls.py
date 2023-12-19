@@ -8,4 +8,5 @@ urlpatterns = [
     path('consult-us/available/', ConsultUsAvailableSlotsView.as_view()),
     path('charges/', ChargesView.as_view()),
     path('pay/', PaymentsView.as_view()),
+    path('payment-callback/', PaymentsCallBackView.as_view()),
 ]

@@ -1,11 +1,21 @@
 from rest_framework import serializers
-from .models import Shop
+from .models import *
+from user.serializers import UserSerializer
+
+
+class ShopImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShopImages
+        fields = '__all__'
 
 
 class ShopSerializer(serializers.ModelSerializer):
+    shop_images = ShopImagesSerializer(many=True)
+
     class Meta:
         model = Shop
-        fields = "__all__"
+        fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code', 'expert_category',
+                  'expert_subcategory', 'shop_cert', 'shop_images', 'id')
 
     def validate(self, attrs):
         user = self.context.get('request').user
@@ -18,3 +28,66 @@ class ShopSerializer(serializers.ModelSerializer):
         if query_set.exists():
             raise serializers.ValidationError("Shop with similar name exists")
         return attrs
+
+
+class DescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Description
+        fields = '__all__'
+
+
+class AboutSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = About
+        fields = '__all__'
+
+
+class ProductImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImages
+        fields = '__all__'
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    description = DescriptionSerializer(many=True)
+    about = AboutSerializer(many=True)
+    product_images = ProductImagesSerializer(many=True)
+    owner = ShopSerializer(read_only=True)
+
+    # discounted_price = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Products
+        fields = (
+            'owner', 'description', 'name', 'price', 'discount', 'rating', 'id', 'about', 'product_images',
+            'profile_photo', 'sales_price')
+
+    def validate(self, attrs):
+        user = self.context.get('request').user
+        if not user:
+            raise serializers.ValidationError("You are not allowed to perform this action.")
+        if not user.is_vendor:
+            raise serializers.ValidationError("You are not allowed to perform this action.")
+        # query_set = Shop.objects.filter(owner=attrs.get("owner"), name=attrs.get('name'))
+        #
+        # if query_set.exists():
+        #     raise serializers.ValidationError("product with similar name exists")
+        return attrs
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(read_only=True)
+    owner = UserSerializer(read_only=True)
+
+    class Meta:
+        model = CartItem
+        fields = ('id', 'products', 'owner', 'quantity', 'date_added', 'total_price', 'total_price_mrp')
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(read_only=True)
+    owner = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = ('products', 'owner', 'quantity', 'date_added')

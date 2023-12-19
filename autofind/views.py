@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .serializers import *
 from .models import *
 import mcg.payment_helper as payment
+import base64
 
 
 class AutoFindView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -79,3 +80,21 @@ class PaymentsView(APIView):
                                                   request.data.get("phone"))
             return Response(payment_intent)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PaymentsCallBackView(APIView):
+    serializer_class = InitPaymentSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        # serializer = InitPaymentSerializer(data=request.data)
+        # if serializer.is_valid(raise_exception=True):
+        #     if request.data.get("product") == 'NC':
+        #         product_price = Charges.objects.all().first().nc
+        #     else:
+        #         product_price = Charges.objects.all().first().vc
+        #     payment_intent = payment.init_payment(product_price, request.data.get("product"),
+        #                                           request.data.get("owner"),
+        #                                           request.data.get("phone"))
+        #     return Response(payment_intent)
+        return Response({'test': 'test'})
