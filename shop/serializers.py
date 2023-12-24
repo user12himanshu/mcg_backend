@@ -4,18 +4,21 @@ from user.serializers import UserSerializer
 
 
 class ShopImagesSerializer(serializers.ModelSerializer):
+    profile_photo = serializers.ImageField()
+
     class Meta:
         model = ShopImages
         fields = '__all__'
 
 
 class ShopSerializer(serializers.ModelSerializer):
-    shop_images = ShopImagesSerializer(many=True)
+    shop_images = ShopImagesSerializer(many=True, read_only=True)
+    owner = UserSerializer(read_only=True)
 
     class Meta:
         model = Shop
-        fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code', 'expert_category',
-                  'expert_subcategory', 'shop_cert', 'shop_images', 'id')
+        fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code',
+                  'shop_cert', 'shop_images', 'id', 'products_set')
 
     def validate(self, attrs):
         user = self.context.get('request').user
@@ -23,10 +26,10 @@ class ShopSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("You are not allowed to perform this action.")
         if not user.is_vendor:
             raise serializers.ValidationError("You are not allowed to perform this action.")
-        query_set = Shop.objects.filter(owner=user, name=attrs.get('name'), pin_code=attrs.get('pin_code'))
-
-        if query_set.exists():
-            raise serializers.ValidationError("Shop with similar name exists")
+        # query_set = Shop.objects.filter(owner=user, name=attrs.get('name'), pin_code=attrs.get('pin_code'))
+        #
+        # if query_set.exists():
+        #     raise serializers.ValidationError("Shop with similar name exists")
         return attrs
 
 

@@ -22,6 +22,9 @@ class AutoFindSerializer(serializers.ModelSerializer):
 
 
 class ConsultUsSerializer(serializers.ModelSerializer):
+    start_time = serializers.TimeField(read_only=True)
+    end_time = serializers.TimeField(read_only=True)
+    date = serializers.DateField(read_only=True)
     class Meta:
         model = Slot
         fields = "__all__"

@@ -8,12 +8,16 @@ from .serializers import *
 from .permissions import IsOwnerPermission
 from knox import views as knox_views
 from django.contrib.auth import login
+from rest_framework import generics
 
 
-class CreateUserAPI(CreateAPIView):
+class CreateUserAPI(CreateAPIView, generics.GenericAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CreateUserSerializer
     permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
 class UpdateUserAPI(UpdateAPIView):

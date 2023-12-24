@@ -44,8 +44,7 @@ class Shop(models.Model):
                                  blank=True)
     shop_images = models.ManyToManyField(ShopImages)
 
-    REQUIRED_FIELDS = ['name', 'whatsapp_number', 'address', 'pin_code', 'expert_category',
-                       'expert_subcategory', 'shop_cert']
+    REQUIRED_FIELDS = ['name', 'whatsapp_number', 'address', 'pin_code', 'shop_cert']
 
     def __str__(self):
         return self.name
@@ -86,11 +85,11 @@ class CartItem(models.Model):
 
     @property
     def total_price(self):
-        return "%.2f" %  float(self.products.sales_price) * float(self.quantity)
+        return "%.2f" % (float(self.products.sales_price) * float(self.quantity))
 
     @property
     def total_price_mrp(self):
-        return "%.2f" % float(self.products.price) * float(self.quantity)
+        return "%.2f" % (float(self.products.price) * float(self.quantity))
 
     def __str__(self):
         return self.products.name + " " + self.owner.phone
@@ -104,3 +103,8 @@ class Order(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     REQUIRED_FIELDS = ['owner', 'quantity', 'date_added', 'products']
+
+# class SubscriptionCharges(models.Model):
+#     monthly = models.DecimalField(decimal_places=2)
+#     yearly = models.DecimalField(decimal_places=2)
+#      = models.DecimalField(decimal_places=2)

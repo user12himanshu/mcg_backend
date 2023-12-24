@@ -17,6 +17,7 @@ class AutoFindView(mixins.ListModelMixin, generics.GenericAPIView):
     def get_queryset(self):
         request = self.request
         data = request.query_params
+        # print(data.get('expert_category'))
         return CustomUser.objects.filter(is_vendor=True, pin_code=data.get('pin_code')) | CustomUser.objects.filter(
             is_vendor=True, city=data.get('city'), state=data.get('state'), expert_category=data.get('expert_category'))
 
@@ -38,9 +39,35 @@ class ConsultUsView(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.Creat
 
     def post(self, request, *args, **kwargs):
         id = kwargs.get('pk')
-
         if id:
             return self.update(request, *args, **kwargs)
+        return self.list(request, *args, **kwargs)
+
+    def perform_update(self, serializer):
+        request = self.request
+        # data = serializer.data
+        serializer.save(booked_by=request.user)
+        # user = request.user
+        # instance = self.get_object()
+        # instance.booked_by = user
+        # instance.booked = True
+        # instance.type = data.get('type')
+        # instance.save()
+
+
+class ConsultViewBooked(mixins.ListModelMixin, generics.GenericAPIView):
+    serializer_class = ConsultUsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser:
+            return Slot.objects.filter(booked=True)
+        else:
+            return Slot.objects.filter(booked=True, booked_by=user)
+
+    def get(self, request, *args, **kwargs):
+        print(self.queryset)
         return self.list(request, *args, **kwargs)
 
 
@@ -87,6 +114,8 @@ class PaymentsCallBackView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
+        data = base64.b64decode(request.data['response'])
+        print(data)
         # serializer = InitPaymentSerializer(data=request.data)
         # if serializer.is_valid(raise_exception=True):
         #     if request.data.get("product") == 'NC':

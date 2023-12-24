@@ -35,6 +35,7 @@ def init_payment(amount, product, owner, phone):
     env = Env.UAT
     ENDPOINT = "/pg/v1/pay"
     transaction_id = uuid.uuid4()
+    call_back_url = "https://a64f-2401-4900-1ca2-60b1-3493-d3af-5164-b06.ngrok-free.app/autofind/payment-callback/?fullName=Himanshu"
     # payment_client = PhonePePaymentClient(merchant_id, salt_key, 1)
 
     MAINPAYLOAD = {
@@ -42,9 +43,9 @@ def init_payment(amount, product, owner, phone):
         "merchantTransactionId": str(transaction_id),
         "merchantUserId": owner,
         "amount": amount * 100,
-        "redirectUrl": "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
+        "redirectUrl": call_back_url,
         "redirectMode": "POST",
-        "callbackUrl": "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
+        "callbackUrl": call_back_url,
         "mobileNumber": int(phone),
         "paymentInstrument": {
             "type": "PAY_PAGE"
@@ -63,7 +64,7 @@ def init_payment(amount, product, owner, phone):
     }
 
     return {'body': base64String,
-            'callBackURL': "https://e924-2401-4900-1c09-197c-b4fa-3081-350e-9c1f.ngrok-free.app/autofind/payment-callback/",
+            'callBackURL': call_back_url,
             'checksum': checkSum,
             "headers": headers,
             "apiEndPoint": ENDPOINT}
