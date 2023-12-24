@@ -18,7 +18,7 @@ class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code',
-                  'shop_cert', 'shop_images', 'id', 'products_set')
+                  'shop_cert', 'shop_images', 'id')
 
     def validate(self, attrs):
         user = self.context.get('request').user
@@ -52,9 +52,9 @@ class ProductImagesSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    description = DescriptionSerializer(many=True)
-    about = AboutSerializer(many=True)
-    product_images = ProductImagesSerializer(many=True)
+    description = DescriptionSerializer(many=True, read_only=True)
+    about = AboutSerializer(many=True, read_only=True)
+    product_images = ProductImagesSerializer(many=True, read_only=True)
     owner = ShopSerializer(read_only=True)
 
     # discounted_price = serializers.SerializerMethodField()
@@ -63,7 +63,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Products
         fields = (
             'owner', 'description', 'name', 'price', 'discount', 'rating', 'id', 'about', 'product_images',
-            'profile_photo', 'sales_price')
+            'profile_photo', 'quantity_in_stock', 'sales_price')
 
     def validate(self, attrs):
         user = self.context.get('request').user

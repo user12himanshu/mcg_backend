@@ -94,6 +94,37 @@ class ShopImagesView(mixins.CreateModelMixin, generics.GenericAPIView):
         return self.create(request, *args, **kwargs)
 
 
+class ProductImagesView(mixins.CreateModelMixin, generics.GenericAPIView):
+    serializer_class = ProductImagesSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser,)
+
+    queryset = ProductImages.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class DescriptionView(mixins.CreateModelMixin, generics.GenericAPIView):
+    serializer_class = DescriptionSerializer
+    permission_classes = [IsAuthenticated]
+
+    queryset = Description.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class AboutView(mixins.CreateModelMixin, generics.GenericAPIView):
+    serializer_class = DescriptionSerializer
+    permission_classes = [IsAuthenticated]
+
+    queryset = Description.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 class ProductMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.ListModelMixin,
                        mixins.RetrieveModelMixin,
                        mixins.DestroyModelMixin,

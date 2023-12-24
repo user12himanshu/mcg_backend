@@ -58,6 +58,7 @@ class Products(models.Model):
     owner = models.ForeignKey(Shop, on_delete=models.CASCADE, blank=False, null=False)
     price = models.DecimalField(max_digits=30, decimal_places=2)
     discount = models.DecimalField(max_digits=30, decimal_places=2, default=0)
+    quanitity_in_stock = models.IntegerField(default=0)
     rating = models.IntegerField(default=5, validators=[MaxValueValidator(5), MinValueValidator(0)])
     product_images = models.ManyToManyField(ProductImages, blank=True, null=True)
     profile_photo = models.ImageField(upload_to='media/product_photo/', validators=[image_extension_validator],

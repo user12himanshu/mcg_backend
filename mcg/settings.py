@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'knox',
     'user',
     'shop',
-    'autofind'
+    'autofind',
+    'diagnostic'
 ]
 
 MIDDLEWARE = [
