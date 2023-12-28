@@ -103,7 +103,7 @@ class PaymentsView(APIView):
                 product_price = Charges.objects.all().first().nc
             else:
                 product_price = Charges.objects.all().first().vc
-            payment_intent = payment.init_payment(product_price, request.data.get("product"), request.data.get("owner"),
+            payment_intent = payment.init_payment(product_price, request.data.get("owner"),
                                                   request.data.get("phone"))
             return Response(payment_intent)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

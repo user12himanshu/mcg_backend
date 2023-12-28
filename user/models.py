@@ -103,3 +103,31 @@ class CustomUser(AbstractBaseUser):
 
     def has_perm(self, perm, obj=None):
         return True
+
+
+class ShopSubscription(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.DO_NOTHING)
+    valid_till = models.DateField(null=True, blank=True)
+    date_added = models.DateTimeField(null=True, blank=True)
+    type = models.CharField(max_length=300, null=True, blank=True)
+
+
+class ShopSubscriptionCharges(models.Model):
+    monthly = models.DecimalField(decimal_places=2, max_digits=10)
+    quarterly = models.DecimalField(decimal_places=2, max_digits=10)
+    half_yearly = models.DecimalField(decimal_places=2, max_digits=10)
+    yearly = models.DecimalField(decimal_places=2, max_digits=10)
+
+
+class DiagnosticSubscription(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.DO_NOTHING)
+    valid_till = models.DateField(null=True, blank=True)
+    date_added = models.DateTimeField(null=True, blank=True)
+    type = models.CharField(max_length=300, null=True, blank=True)
+
+
+class DiagnosticSubscriptionCharges(models.Model):
+    monthly = models.DecimalField(decimal_places=2, max_digits=10)
+    quarterly = models.DecimalField(decimal_places=2, max_digits=10)
+    half_yearly = models.DecimalField(decimal_places=2, max_digits=10)
+    yearly = models.DecimalField(decimal_places=2, max_digits=10)

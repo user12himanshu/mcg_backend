@@ -28,7 +28,7 @@ def base64_encode(input_dict):
     return base64.b64encode(data_bytes).decode('utf-8')
 
 
-def init_payment(amount, product, owner, phone):
+def init_payment(amount, owner, phone):
     merchant_id = settings.MERCHANT_ID
     salt_key = settings.SALT_KEY
     salt_index = str(1)
@@ -42,7 +42,7 @@ def init_payment(amount, product, owner, phone):
         "merchantId": merchant_id,
         "merchantTransactionId": str(transaction_id),
         "merchantUserId": owner,
-        "amount": amount * 100,
+        "amount": int(amount * 100),
         "redirectUrl": call_back_url,
         "redirectMode": "POST",
         "callbackUrl": call_back_url,

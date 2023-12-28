@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import CustomUser, ExpertCategory
+from .models import CustomUser, ExpertCategory, ShopSubscription, ShopSubscriptionCharges, DiagnosticSubscription, \
+    DiagnosticSubscriptionCharges
 from django.core.validators import RegexValidator
 from django.contrib.auth import authenticate
 
@@ -7,7 +8,8 @@ from django.contrib.auth import authenticate
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'phone', 'email', 'whatsapp_number', 'full_name', 'address', 'pin_code', 'city', 'state','is_vendor')
+        fields = (
+            'id', 'phone', 'email', 'whatsapp_number', 'full_name', 'address', 'pin_code', 'city', 'state', 'is_vendor')
 
 
 class ExpertCategorySerializer(serializers.ModelSerializer):
@@ -132,3 +134,35 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError('Account not found! Please register')
 
         return attrs
+
+
+class ShopSubsriptionSerializer(serializers.ModelSerializer):
+    valid_till = serializers.DateField(read_only=True)
+    date_added = serializers.DateTimeField(read_only=True)
+
+    # user = serializers.OneToONe(read_only=True)
+    class Meta:
+        model = ShopSubscription
+        fields = '__all__'
+
+
+class ShopSubscriptionChargesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShopSubscriptionCharges
+        fields = '__all__'
+
+
+class DiagnosticSubsriptionSerializer(serializers.ModelSerializer):
+    valid_till = serializers.DateField(read_only=True)
+    date_added = serializers.DateTimeField(read_only=True)
+
+    # user = serializers.OneToONe(read_only=True)
+    class Meta:
+        model = DiagnosticSubscription
+        fields = '__all__'
+
+
+class DiagnosticSubscriptionChargesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiagnosticSubscriptionCharges
+        fields = '__all__'

@@ -1,4 +1,6 @@
-from rest_framework import mixins, generics, status
+import datetime
+
+from rest_framework import mixins, generics, status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from knox.auth import AuthToken
@@ -116,7 +118,7 @@ class DescriptionView(mixins.CreateModelMixin, generics.GenericAPIView):
 
 
 class AboutView(mixins.CreateModelMixin, generics.GenericAPIView):
-    serializer_class = DescriptionSerializer
+    serializer_class = AboutSerializer
     permission_classes = [IsAuthenticated]
 
     queryset = Description.objects.all()
@@ -139,13 +141,13 @@ class ProductMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.
         user = self.request.user
         if not user.is_authenticated:
             return Shop.objects.none()
-        return Products.objects.all()
+        return Products.objects.filter(owner__owner__shopsubscription__valid_till__gt=datetime.date.today())
 
     def get(self, request, *args, **kwargs):
         if kwargs.get('owner'):
             owner = self.request.user
             shop = Shop.objects.filter(id=self.kwargs['owner']).first()
-            qs = self.get_queryset().filter(owner=shop)
+            qs = Products.objects.filter(owner=shop)
             serializer = self.get_serializer(qs, many=True)
             return Response(serializer.data)
         if kwargs.get('pk') is not None:
@@ -160,6 +162,28 @@ class ProductMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.
     def delete(self, request, *args, **kwargs):
         if kwargs.get('pk') is not None:
             return self.destroy(request, *args, **kwargs)
+
+    def create(self, request, *args, **kwargs):
+        user = self.request.user
+        if not user:
+            raise ValueError("You are not allowed to perform this action.")
+        if not user.is_vendor:
+            raise ValueError("You are not allowed to perform this action.")
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            shop = Shop.objects.get(id=self.request.data['shopId'])
+            instance = serializer.save(owner=shop)
+            for imageId in request.data.get('product_images'):
+                image = ProductImages.objects.filter(id=imageId).first()
+                instance.product_images.add(image)
+            for descriptionId in request.data.get('description'):
+                description = Description.objects.filter(id=descriptionId).first()
+                instance.description.add(description)
+            for aboutId in request.data.get('about'):
+                about = About.objects.filter(id=aboutId).first()
+                instance.about.add(about)
+            instance.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -218,3 +242,16 @@ class CartView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.ListMode
 
         if serializer.is_valid(raise_exception=True):
             serializer.save(owner=self.request.user, products=product)
+
+
+class OrderViewSet(mixins.ListModelMixin, generics.GenericAPIView):
+    serializer_class = CartItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = CartItem.objects.filter(products__owner__owner=user).order_by('-date_added')
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

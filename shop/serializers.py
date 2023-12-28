@@ -63,7 +63,7 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Products
         fields = (
             'owner', 'description', 'name', 'price', 'discount', 'rating', 'id', 'about', 'product_images',
-            'profile_photo', 'quantity_in_stock', 'sales_price')
+            'profile_photo', 'quanitity_in_stock', 'sales_price')
 
     def validate(self, attrs):
         user = self.context.get('request').user

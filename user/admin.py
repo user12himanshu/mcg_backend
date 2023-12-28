@@ -5,3 +5,8 @@ from .models import *
 admin.site.register(CustomUser)
 admin.site.register(ExpertCategory)
 admin.site.register(ExpertSubcategory)
+admin.site.register(ShopSubscription)
+admin.site.register(ShopSubscriptionCharges)
+admin.site.register(DiagnosticSubscription)
+admin.site.register(DiagnosticSubscriptionCharges)
+
