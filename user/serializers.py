@@ -3,6 +3,9 @@ from .models import CustomUser, ExpertCategory, ShopSubscription, ShopSubscripti
     DiagnosticSubscriptionCharges
 from django.core.validators import RegexValidator
 from django.contrib.auth import authenticate
+import random
+import requests
+import requests
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -55,21 +58,31 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
 
 class CreateVendorUserSerializer(serializers.ModelSerializer):
+    expert_category = ExpertCategorySerializer(read_only=True)
+
     class Meta:
         model = CustomUser
         fields = '__all__'
 
     def create(self, validated_data):
-        user = CustomUser.objects.create_user(**validated_data)
+        request = self.context.get('request')
+        expert_category_id = request.data.get('expert_category')
+        expert_category = ExpertCategory.objects.get(id=expert_category_id)
+        user = CustomUser.objects.create_user(**validated_data, expert_category=expert_category)
+        otp = random.randint(100000, 999999)
+        user.otp = otp
+        response = requests.post(f'https://www.smsalert.co.in/api/push.json?apikey=5dd7cd37e7239&sender=VIEWIT&mobileno={9302009227}&text=Your%20MCG%20Autofind%20Otp%20is%20{user.otp}')
+        user.save()
         return user
 
     def validate(self, attrs):
         if not attrs.get('is_vendor'):
+            print('here')
             raise serializers.ValidationError('Something went wrong')
-        if not attrs.get('expert_category'):
-            raise serializers.ValidationError('Expert Category is required')
-        if not attrs.get('expert_subcategory'):
-            raise serializers.ValidationError('Expert SubCategory is required')
+        # if not attrs.get('expert_category'):
+        #     raise serializers.ValidationError('Expert Category is required')
+        # if not attrs.get('expert_subcategory'):
+        #     raise serializers.ValidationError('Expert SubCategory is required')
         if not attrs.get('years_of_experience'):
             raise serializers.ValidationError('Year of Experience is required')
         if not attrs.get('aadhar_card'):

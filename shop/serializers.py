@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 from user.serializers import UserSerializer
+# from mcg.serializers import UserPublicExpertSerializer
+# from autofind.serializers import AutoFindSerializer
 
 
 class ShopImagesSerializer(serializers.ModelSerializer):

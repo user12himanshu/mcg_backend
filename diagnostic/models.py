@@ -36,11 +36,17 @@ class EngineType(models.Model):
 
 class Diagnostic(models.Model):
     file_extension_validator = FileExtensionValidator(allowed_extensions=['pdf'])
+    TYPE_CHOICES = (
+        ('wiring', 'Wiring'),
+        ('diagnostic', 'Diagnostic'),
+        ('maintenance', 'Maintenance'),
+    )
     name = models.CharField(max_length=300, default="")
     car = models.ForeignKey(CarModel, on_delete=models.DO_NOTHING)
     brand = models.ForeignKey(CarBrand, on_delete=models.DO_NOTHING)
     year = models.ForeignKey(CarYear, on_delete=models.DO_NOTHING)
     engine_type = models.ForeignKey(EngineType, on_delete=models.DO_NOTHING, null=True)
+    type = models.CharField(max_length=100, choices=TYPE_CHOICES, default=TYPE_CHOICES[1])
     file = models.FileField(upload_to='media/diagnostics/', validators=[file_extension_validator])
 
     def __str__(self):
@@ -48,14 +54,13 @@ class Diagnostic(models.Model):
 
 
 class DiagnosticVideos(models.Model):
-    file_extension_validator = FileExtensionValidator(allowed_extensions=['mp4'])
     name = models.CharField(max_length=300, default="")
     car = models.ForeignKey(CarModel, on_delete=models.DO_NOTHING)
     brand = models.ForeignKey(CarBrand, on_delete=models.DO_NOTHING)
-    file = models.FileField(upload_to='media/diagnostics/videos/', validators=[file_extension_validator])
+    url = models.URLField(max_length=500, default="")
 
     def __str__(self):
-        return self.file.name
+        return self.name
 
 
 class Advertisement(models.Model):

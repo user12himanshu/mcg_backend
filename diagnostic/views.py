@@ -75,13 +75,15 @@ class DiagnosticView(generics.ListAPIView, GenericAPIView):
         model = request.query_params.get('model')
         year = request.query_params.get('year')
         engineType = request.query_params.get('engine_type')
+        type = request.query_params.get('type')
 
         car_brand = CarBrand.objects.get(id=brand)
         car_model = CarModel.objects.get(id=model)
         car_year = CarYear.objects.get(id=year)
         car_engine_type = EngineType.objects.get(id=engineType)
 
-        queryset = Diagnostic.objects.filter(brand=car_brand, car=car_model, year=car_year, engine_type=car_engine_type)
+        queryset = Diagnostic.objects.filter(brand=car_brand, car=car_model, year=car_year, engine_type=car_engine_type,
+                                             type=type)
         return queryset
 
     def get(self, request, *args, **kwargs):

@@ -51,7 +51,7 @@ class ExpertSubcategory(models.Model):
 class CustomUser(AbstractBaseUser):
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+123456789'. Up to 10 digits allowed."
+        message="Phone number must be entered in the format: '123456789'. Up to 10 digits allowed."
     )
     file_extension_validator = FileExtensionValidator(allowed_extensions=['pdf', 'png', 'jpg', 'jpeg'])
     image_extension_validator = FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg', 'gif'])

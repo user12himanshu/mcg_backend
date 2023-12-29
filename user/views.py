@@ -1,11 +1,12 @@
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from .serializers import *
 from .permissions import IsOwnerPermission
+from autofind.serializers import AutoFindSerializer
 from knox import views as knox_views
 from django.contrib.auth import login
 from rest_framework import generics
@@ -83,6 +84,15 @@ class ExpertCategoryMixin(ListModelMixin, GenericAPIView):
     serializer_class = ExpertCategorySerializer
     permission_classes = [AllowAny]
     queryset = ExpertCategory.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
+class GetAllSellers(ListModelMixin, generics.GenericAPIView):
+    serializer_class = AutoFindSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = CustomUser.objects.filter(is_vendor=True)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
