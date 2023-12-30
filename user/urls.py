@@ -11,6 +11,8 @@ urlpatterns = [
     path('login/', LoginAPIView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('logout-all/', LogoutAllView.as_view()),
+    path('send-otp/', SendOtpView.as_view()),
+    path('verify-otp/', ValidateOtpView.as_view()),
     path('experts/', ExpertCategoryMixin.as_view()),
     path('check-shop-subscription/', CheckShopSubscriptionView.as_view()),
     path('add-shop-subscription/', AddShopSubscriptionView.as_view()),

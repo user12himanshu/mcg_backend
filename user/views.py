@@ -1,3 +1,5 @@
+import json
+
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.generics import CreateAPIView, UpdateAPIView, GenericAPIView
@@ -10,8 +12,10 @@ from autofind.serializers import AutoFindSerializer
 from knox import views as knox_views
 from django.contrib.auth import login
 from rest_framework import generics
+from rest_framework.decorators import api_view
 from .models import ShopSubscription
 import datetime
+import requests
 from dateutil.relativedelta import relativedelta
 import mcg.payment_helper as payment
 
@@ -268,3 +272,33 @@ class InitDiagnosticSubscriptionPayment(GenericAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         payment_intent = payment.init_payment(float(price), user.id, user.phone)
         return Response(payment_intent)
+
+
+class SendOtpView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        phone = request.data.get("phone")
+
+        url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&sender=MCGAUT&mobileno={phone}&template=You are just one step away from registering to MCG AutoFind. Here is your OTP for signing up - [otp]"
+        res = requests.post(url)
+        if res.status_code == 200:
+            return Response({'sent': 'success'}, status.HTTP_200_OK)
+        return Response({'sent': 'failed'}, status.HTTP_403_FORBIDDEN)
+
+
+class ValidateOtpView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        phone = request.data.get('phone')
+        code = request.data.get('code')
+
+        url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&mobileno={phone}&code={code}"
+        res = requests.post(url)
+        data = json.loads(res.text)
+        if res.status_code == 200:
+            if data['description']['desc'] == "Code Matched successfully.":
+                return Response({'verify': 'success'}, status.HTTP_200_OK)
+
+        return Response({'sent': 'failed', 'message': data['description']["desc"]}, status.HTTP_400_BAD_REQUEST)
