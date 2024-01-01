@@ -7,6 +7,7 @@ from knox.auth import AuthToken
 from knox.settings import CONSTANTS
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
 
 from .serializers import *
 
@@ -136,6 +137,8 @@ class ProductMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.
     lookup_field = 'pk'
 
     permission_classes = [IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
 
     def get_queryset(self):
         user = self.request.user

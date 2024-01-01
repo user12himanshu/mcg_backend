@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, ExpertCategorySerializer
+
+
 # from mcg.serializers import UserPublicExpertSerializer
 # from autofind.serializers import AutoFindSerializer
 
@@ -16,11 +18,12 @@ class ShopImagesSerializer(serializers.ModelSerializer):
 class ShopSerializer(serializers.ModelSerializer):
     shop_images = ShopImagesSerializer(many=True, read_only=True)
     owner = UserSerializer(read_only=True)
+    expert_category = ExpertCategorySerializer(read_only=True)
 
     class Meta:
         model = Shop
         fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code',
-                  'shop_cert', 'shop_images', 'id')
+                  'shop_cert', 'shop_images', 'id', 'expert_category')
 
     def validate(self, attrs):
         user = self.context.get('request').user

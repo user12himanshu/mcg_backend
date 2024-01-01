@@ -38,7 +38,7 @@ class Shop(models.Model):
     whatsapp_number = models.CharField(blank=False, null=False, max_length=15, validators=[phone_regex])
     address = models.CharField(blank=False, null=False, max_length=150)
     pin_code = models.IntegerField(blank=False, null=False, max_length=15)
-    expert_category = models.ForeignKey(ExpertCategory, null=True, blank=True, on_delete=models.DO_NOTHING)
+    expert_category = models.ForeignKey(ExpertCategory, on_delete=models.DO_NOTHING)
     expert_subcategory = models.ForeignKey(ExpertSubcategory, null=True, blank=True, on_delete=models.DO_NOTHING)
     shop_cert = models.FileField(upload_to='uploads/shop_cert/', validators=[file_extension_validator], null=True,
                                  blank=True)
