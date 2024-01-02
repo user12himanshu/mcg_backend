@@ -44,16 +44,20 @@ class ShopMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Lis
 
     def create(self, request, *args, **kwargs):
         user = self.request.user
+        expert_category = request.data.pop('expert_category_id')
+        expert_category = int(expert_category[0])
+        ec = ExpertCategory.objects.get(id=expert_category)
         if not user:
             raise ValueError("You are not allowed to perform this action.")
         if not user.is_vendor:
             raise ValueError("You are not allowed to perform this action.")
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            instance = serializer.save(owner=user)
+            instance = serializer.save(owner=user, expert_category=ec)
             for imageId in request.data.get('shop_images'):
                 image = ShopImages.objects.filter(id=imageId).first()
                 instance.shop_images.add(image)
+            # instance.expert_category = ec
             instance.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -144,7 +148,8 @@ class ProductMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.
         user = self.request.user
         if not user.is_authenticated:
             return Shop.objects.none()
-        return Products.objects.filter(owner__owner__shopsubscription__valid_till__gt=datetime.date.today())
+        return Products.objects.filter(owner__owner__shopsubscription__valid_till__gt=datetime.date.today(),
+                                       owner__is_verified=True)
 
     def get(self, request, *args, **kwargs):
         if kwargs.get('owner'):

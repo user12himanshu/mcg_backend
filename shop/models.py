@@ -36,6 +36,7 @@ class Shop(models.Model):
     name = models.CharField(null=False, blank=False)
     email = models.EmailField(null=True, blank=True)
     whatsapp_number = models.CharField(blank=False, null=False, max_length=15, validators=[phone_regex])
+    phone = models.CharField(blank=False, null=False, max_length=15, validators=[phone_regex])
     address = models.CharField(blank=False, null=False, max_length=150)
     pin_code = models.IntegerField(blank=False, null=False, max_length=15)
     expert_category = models.ForeignKey(ExpertCategory, on_delete=models.DO_NOTHING)
@@ -44,7 +45,7 @@ class Shop(models.Model):
                                  blank=True)
     shop_images = models.ManyToManyField(ShopImages)
 
-    REQUIRED_FIELDS = ['name', 'whatsapp_number', 'address', 'pin_code', 'shop_cert']
+    REQUIRED_FIELDS = ['name', 'whatsapp_number', 'address', 'pin_code', 'shop_cert', 'phone']
 
     def __str__(self):
         return self.name

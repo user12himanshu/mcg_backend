@@ -23,7 +23,7 @@ class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
         fields = ('owner', 'is_verified', 'name', 'email', 'whatsapp_number', 'address', 'pin_code',
-                  'shop_cert', 'shop_images', 'id', 'expert_category')
+                  'shop_cert', 'shop_images', 'id', 'expert_category', 'phone')
 
     def validate(self, attrs):
         user = self.context.get('request').user
