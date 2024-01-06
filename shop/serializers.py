@@ -37,6 +37,17 @@ class ShopSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError("Shop with similar name exists")
         return attrs
 
+    def update(self, instance, validated_data):
+        request = self.context.get('request')
+        if request.data.get('shop_images') is not None:
+            instance.shop_images.clear()
+            images = request.data.pop('shop_images')
+            for imageId in images:
+                image = ShopImages.objects.filter(id=imageId).first()
+                instance.shop_images.add(image)
+        instance = super().update(instance, validated_data)
+        return instance
+
 
 class DescriptionSerializer(serializers.ModelSerializer):
     class Meta:

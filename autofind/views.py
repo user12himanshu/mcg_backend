@@ -8,6 +8,7 @@ from .serializers import *
 from .models import *
 import mcg.payment_helper as payment
 import base64
+from notification.views import createNotificationFromSlot
 
 
 class AutoFindView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -46,7 +47,8 @@ class ConsultUsView(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.Creat
     def perform_update(self, serializer):
         request = self.request
         # data = serializer.data
-        serializer.save(booked_by=request.user)
+        instance = serializer.save(booked_by=request.user)
+        createNotificationFromSlot(user=request.user, slotId=instance.id)
         # user = request.user
         # instance = self.get_object()
         # instance.booked_by = user

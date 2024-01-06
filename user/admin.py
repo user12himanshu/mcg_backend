@@ -9,4 +9,4 @@ admin.site.register(ShopSubscription)
 admin.site.register(ShopSubscriptionCharges)
 admin.site.register(DiagnosticSubscription)
 admin.site.register(DiagnosticSubscriptionCharges)
-
+admin.site.register(Enquiry)

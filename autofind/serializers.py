@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from user.models import CustomUser
-from user.serializers import ExpertCategorySerializer
+from user.serializers import ExpertCategorySerializer, UserSerializer
 from shop.serializers import ShopSerializer
 from .models import *
 
@@ -20,6 +19,12 @@ class AutoFindSerializer(serializers.ModelSerializer):
     def get_profile_photo(self, obj):
         return obj.profile_photo.url
 
+
+# class NofiticationSerializer(serializers.ModelSerializer):
+#     user = UserSerializer(read_only=True)
+#     class Meta:
+#         model = Notification
+#         fields = '__all__'
 
 class ConsultUsSerializer(serializers.ModelSerializer):
     start_time = serializers.TimeField(read_only=True)

@@ -1,4 +1,5 @@
 from user.models import *
+from user.models import CustomUser
 from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
 
 

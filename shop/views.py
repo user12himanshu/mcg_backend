@@ -8,6 +8,7 @@ from knox.settings import CONSTANTS
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import filters
+from notification.views import createNotificationFromCartItem
 
 from .serializers import *
 
@@ -28,13 +29,13 @@ class ShopMixinView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Lis
         return Shop.objects.filter(owner=user)
 
     def get(self, request, *args, **kwargs):
-        print("working")
         if kwargs.get('pk') is not None:
             return self.retrieve(request, *args, **kwargs)
         return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if kwargs.get('pk') is not None:
+            kwargs['partial'] = True
             return self.update(request, *args, **kwargs)
         return self.create(request, *args, **kwargs)
 
@@ -249,7 +250,8 @@ class CartView(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.ListMode
         product = Products.objects.filter(id=product_id).first()
 
         if serializer.is_valid(raise_exception=True):
-            serializer.save(owner=self.request.user, products=product)
+            instance = serializer.save(owner=self.request.user, products=product)
+            createNotificationFromCartItem(user=self.request.user, cartItemId=instance.id)
 
 
 class OrderViewSet(mixins.ListModelMixin, generics.GenericAPIView):

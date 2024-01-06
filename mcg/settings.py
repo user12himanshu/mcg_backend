@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'user',
     'shop',
     'autofind',
-    'diagnostic'
+    'diagnostic',
+    'notification'
 ]
 
 MIDDLEWARE = [

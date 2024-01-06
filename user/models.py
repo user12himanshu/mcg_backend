@@ -105,6 +105,22 @@ class CustomUser(AbstractBaseUser):
         return True
 
 
+class Enquiry(models.Model):
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{9,15}$',
+        message="Phone number must be entered in the format: '123456789'. Up to 10 digits allowed."
+    )
+    full_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    phone = models.CharField(blank=False, null=False, max_length=15, validators=[phone_regex])
+    message = models.TextField(blank=True)
+
+    REQUIRED_FIELDS = ['full_name', 'phone', 'email', 'message']
+
+    def __str__(self):
+        return self.full_name
+
+
 class ShopSubscription(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.DO_NOTHING)
     valid_till = models.DateField(null=True, blank=True)

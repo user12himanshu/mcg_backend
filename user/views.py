@@ -44,6 +44,33 @@ class UpdateUserAPI(UpdateAPIView):
         return qs.filter(phone=user.phone)
 
 
+class UpdateExpertUserAPI(UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UpdateExpertUserSerializer
+    permission_classes = [IsAuthenticated, IsOwnerPermission]
+    lookup_field = 'pk'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        request = self.request
+        user = request.user
+        if not user.is_authenticated:
+            return CustomUser.objects.none()
+        return qs.filter(phone=user.phone)
+
+
+class UpdateUserPasswordAPI(UpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UpdateUserSerializer
+    permission_classes = [permissions.AllowAny]
+    lookup_field = 'pk'
+
+    # def get_queryset(self, *args, **kwargs):
+    #     qs = super().get_queryset(*args, **kwargs)
+    #     phone = self.request.query_params.get('phone')
+    #     return qs.filter(phone=phone)
+
+
 class CreateVendorUserAPI(CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CreateVendorUserSerializer
@@ -279,8 +306,12 @@ class SendOtpView(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         phone = request.data.get("phone")
-
-        url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&sender=MCGAUT&mobileno={phone}&template=You are just one step away from registering to MCG AutoFind. Here is your OTP for signing up - [otp]"
+        forgot_pass = request.data.get("forgot_pass")
+        print('here')
+        if forgot_pass:
+            url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&sender=MCGAUT&mobileno={phone}&template=Remembering the password can be a headache. You can reset your password for MCG AutoFind by entering this OTP - [otp]"
+        else:
+            url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&sender=MCGAUT&mobileno={phone}&template=You are just one step away from registering to MCG AutoFind. Here is your OTP for signing up - [otp]"
         res = requests.post(url)
         if res.status_code == 200:
             return Response({'sent': 'success'}, status.HTTP_200_OK)
@@ -302,3 +333,52 @@ class ValidateOtpView(generics.GenericAPIView):
                 return Response({'verify': 'success'}, status.HTTP_200_OK)
 
         return Response({'sent': 'failed', 'message': data['description']["desc"]}, status.HTTP_400_BAD_REQUEST)
+
+
+class CheckUserExistsView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def getQueryset(self, request, *args, **kwargs):
+        phone = request.query_params.get('phone')
+        qs = CustomUser.objects.filter(phone=phone)
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        if self.getQueryset(request).exists():
+            return Response({'exist': True}, status.HTTP_200_OK)
+        else:
+            return Response({'exist': False}, status.HTTP_200_OK)
+
+
+class GetUserIdView(generics.GenericAPIView):
+    permission_classes = [permissions.AllowAny]
+
+    def getQueryset(self, request, *args, **kwargs):
+        phone = request.query_params.get('phone')
+        qs = CustomUser.objects.filter(phone=phone)
+        return qs
+
+    def get(self, request, *args, **kwargs):
+        qs = self.getQueryset(request)
+        if qs.exists():
+            return Response({'id': qs.first().id}, status.HTTP_200_OK)
+        else:
+            return Response({'exist': False}, status.HTTP_400_BAD_REQUEST)
+
+
+class GetUserView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = ExpertSerializer
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        serializer = self.get_serializer(user)
+        return Response(serializer.data)
+
+
+class EnquiryView(CreateAPIView, generics.GenericAPIView):
+    permissions = [IsAuthenticated]
+    serializer_class = EnquirySerializer
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)

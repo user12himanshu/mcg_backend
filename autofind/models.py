@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import CustomUser
+from shop.models import CartItem
 from mcg.utility import phone_regex
 
 

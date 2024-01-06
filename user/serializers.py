@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser, ExpertCategory, ShopSubscription, ShopSubscriptionCharges, DiagnosticSubscription, \
-    DiagnosticSubscriptionCharges
+    DiagnosticSubscriptionCharges, Enquiry
 from django.core.validators import RegexValidator
 from django.contrib.auth import authenticate
 import random
@@ -57,6 +57,28 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         return instance
 
 
+class UpdateExpertUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = "__all__"
+
+    def update(self, instance, validated_data):
+        # print(validated_data)
+        if validated_data.__contains__('password'):
+            password = validated_data.pop('password')
+            if password:
+                instance.set_password(password)
+        request = self.context['request']
+        data = request.data
+
+        if data.get('expert_category') is not None:
+            ec = ExpertCategory.objects.get(id=data.get('expert_category'))
+            instance.expert_category = ec
+
+        instance = super().update(instance, validated_data)
+        return instance
+
+
 class CreateVendorUserSerializer(serializers.ModelSerializer):
     expert_category = ExpertCategorySerializer(read_only=True)
 
@@ -71,7 +93,8 @@ class CreateVendorUserSerializer(serializers.ModelSerializer):
         user = CustomUser.objects.create_user(**validated_data, expert_category=expert_category)
         otp = random.randint(100000, 999999)
         user.otp = otp
-        response = requests.post(f'https://www.smsalert.co.in/api/push.json?apikey=5dd7cd37e7239&sender=VIEWIT&mobileno={9302009227}&text=Your%20MCG%20Autofind%20Otp%20is%20{user.otp}')
+        response = requests.post(
+            f'https://www.smsalert.co.in/api/push.json?apikey=5dd7cd37e7239&sender=VIEWIT&mobileno={9302009227}&text=Your%20MCG%20Autofind%20Otp%20is%20{user.otp}')
         user.save()
         return user
 
@@ -178,4 +201,21 @@ class DiagnosticSubsriptionSerializer(serializers.ModelSerializer):
 class DiagnosticSubscriptionChargesSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiagnosticSubscriptionCharges
+        fields = '__all__'
+
+
+class ExpertSerializer(serializers.ModelSerializer):
+    expert_category = ExpertCategorySerializer(read_only=True, allow_null=True)
+    profile_photo = serializers.ImageField()
+
+    # shop_set = ShopSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+
+
+class EnquirySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Enquiry
         fields = '__all__'

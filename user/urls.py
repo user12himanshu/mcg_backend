@@ -5,8 +5,12 @@ from knox.views import LogoutView, LogoutAllView
 urlpatterns = [
     path('create-user/', CreateUserAPI.as_view()),
     path('update-user/<int:pk>/', UpdateUserAPI.as_view()),
+    path('update-expertuser/<int:pk>/', UpdateExpertUserAPI.as_view()),
+    path('update-password/<int:pk>/', UpdateUserPasswordAPI.as_view()),
     path('create-expertuser/', CreateVendorUserAPI.as_view()),
-    path('update-expertuser/<int:pk>/', UpdateVendorUserAPI.as_view()),
+    path('get-user/', GetUserView.as_view()),
+    path('enquiry/', EnquiryView.as_view()),
+    # path('update-expertuser/<int:pk>/', UpdateVendorUserAPI.as_view()),
     path('all-sellers/', GetAllSellers.as_view()),
     path('login/', LoginAPIView.as_view()),
     path('logout/', LogoutView.as_view()),
@@ -22,4 +26,6 @@ urlpatterns = [
     path('add-diagnostic-subscription/', AddDiagnosticSubscriptionView.as_view()),
     path('diagnostic-subscription-charges/', DiagnosticSubscriptionChargesView.as_view()),
     path('init-diagnostic-subscription/', InitDiagnosticSubscriptionPayment.as_view()),
+    path('exist/', CheckUserExistsView.as_view()),
+    path('get-user-id/', GetUserIdView.as_view()),
 ]
