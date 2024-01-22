@@ -45,7 +45,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = (
-            'phone', 'email', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'city', 'state')
+            'phone', 'email', 'full_name', 'address', 'pin_code', 'whatsapp_number', 'city', 'state', 'password')
 
     def update(self, instance, validated_data):
         # print(validated_data)
