@@ -117,7 +117,6 @@ class PaymentsCallBackView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = base64.b64decode(request.data['response'])
-        print(data)
         # serializer = InitPaymentSerializer(data=request.data)
         # if serializer.is_valid(raise_exception=True):
         #     if request.data.get("product") == 'NC':
