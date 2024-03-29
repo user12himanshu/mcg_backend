@@ -100,7 +100,6 @@ class CreateVendorUserSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if not attrs.get('is_vendor'):
-            print('here')
             raise serializers.ValidationError('Something went wrong')
         # if not attrs.get('expert_category'):
         #     raise serializers.ValidationError('Expert Category is required')

@@ -77,6 +77,21 @@ class CreateVendorUserAPI(CreateAPIView):
     permission_classes = [AllowAny]
 
 
+class VerifyVendorUserCreationAPI(GenericAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CreateVendorUserSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        serializer = CreateVendorUserSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+           return Response({'verify': True}, status=status.HTTP_200_OK)
+        else:
+            print(serializer.errors)
+            return Response({'verify': 'false'}, status=status.HTTP_200_OK)
+
+
 class UpdateVendorUserAPI(UpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UpdateVendorUserSerializer
@@ -328,6 +343,7 @@ class ValidateOtpView(generics.GenericAPIView):
         url = f"http://www.smsalert.co.in/api/mverify.json?apikey=65906255a7355&mobileno={phone}&code={code}"
         res = requests.post(url)
         data = json.loads(res.text)
+        print(data)
         if res.status_code == 200:
             if data['description']['desc'] == "Code Matched successfully.":
                 return Response({'verify': 'success'}, status.HTTP_200_OK)
