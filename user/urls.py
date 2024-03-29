@@ -8,6 +8,7 @@ urlpatterns = [
     path('update-expertuser/<int:pk>/', UpdateExpertUserAPI.as_view()),
     path('update-password/<int:pk>/', UpdateUserPasswordAPI.as_view()),
     path('create-expertuser/', CreateVendorUserAPI.as_view()),
+    path('verify-expertuser/', VerifyVendorUserCreationAPI.as_view()),
     path('get-user/', GetUserView.as_view()),
     path('enquiry/', EnquiryView.as_view()),
     # path('update-expertuser/<int:pk>/', UpdateVendorUserAPI.as_view()),

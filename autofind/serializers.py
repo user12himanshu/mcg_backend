@@ -48,7 +48,9 @@ class ChargesSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class InitPaymentSerializer(serializers.Serializer):
-    product = serializers.CharField(required=True)
-    owner = serializers.IntegerField(required=True)
-    phone = serializers.CharField(required=True)
+class InitPaymentSerializer(ConsultUsSerializer):
+    id = serializers.IntegerField(required=True)
+
+
+class PaymentCallbackSerializer(serializers.Serializer):
+    order_id = serializers.CharField(required=True)
