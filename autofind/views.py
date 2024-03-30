@@ -11,6 +11,8 @@ import base64
 from notification.views import createNotificationFromSlot
 from cashfree_pg.api_client import Cashfree
 from django.conf import settings
+from .helpers import is_inside
+from django.db.models import Q
 
 
 class AutoFindView(mixins.ListModelMixin, generics.GenericAPIView):
@@ -20,9 +22,22 @@ class AutoFindView(mixins.ListModelMixin, generics.GenericAPIView):
     def get_queryset(self):
         request = self.request
         data = request.query_params
-        # print(data.get('expert_category')
-        return CustomUser.objects.filter(is_vendor=True, pin_code=data.get('pin_code')) | CustomUser.objects.filter(
-            is_vendor=True, city=data.get('city'), state=data.get('state'), expert_category=data.get('expert_category'))
+        lat = data.get('lat')
+        long = data.get('long')
+        if lat and long:
+            lat = float(lat)
+            long = float(long)
+            qs = CustomUser.objects.filter(is_vendor=True, expert_category=data.get('expert_category'))
+            qs_final = []
+            for q in qs:
+                if is_inside(lat, long, q.latitude, q.longitude):
+                    qs_final.append(q.id)
+            queryset = CustomUser.objects.filter(Q(pk__in=qs_final))
+            return queryset
+        else:
+            return CustomUser.objects.filter(is_vendor=True, pin_code=data.get('pin_code')) | CustomUser.objects.filter(
+                is_vendor=True, city=data.get('city'), state=data.get('state'),
+                expert_category=data.get('expert_category'))
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)

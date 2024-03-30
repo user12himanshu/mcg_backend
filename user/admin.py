@@ -15,7 +15,7 @@ admin.site.register(Enquiry)
 
 
 class CustomUserAdmin(admin.ModelAdmin):
-    search_fields = ['phone']
+    search_fields = ['phone', 'email']
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
