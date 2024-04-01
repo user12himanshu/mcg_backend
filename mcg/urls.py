@@ -2,11 +2,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import privacy_policy, terms_of_service
+from .views import *
 
 urlpatterns = [
     path('privacy-policy/', privacy_policy),
     path('terms-conditions/', terms_of_service),
+    path('return-policy/', return_policy),
+    path('refund-policy/', refund_policy),
+    path('shipping-policy/', shipping_policy),
     path('admin/', admin.site.urls),
     path('users/', include('user.urls')),
     path('shop/', include('shop.urls')),
