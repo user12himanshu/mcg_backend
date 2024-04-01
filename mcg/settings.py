@@ -33,9 +33,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5^m8vjye%8e^p1pxz#r#_%19m+(i-)-mp%in#2!-0m*37e%geg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["mcgatuofind.in", "62.72.57.148"]
 
 # Application definition
 
@@ -161,3 +161,8 @@ SALT_KEY = env("SALTKEY")
 
 CF_CLIENT_ID = env("CF_CLIENT_ID")
 CF_CLIENT_SECRET = env("CF_CLIENT_SECRET")
+
+SECURE_HSTS_SECONDS = 1
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
