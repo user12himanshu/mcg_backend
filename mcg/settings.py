@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-5^m8vjye%8e^p1pxz#r#_%19m+(i-)-mp%in#2!-0m*37e%geg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["mcgatuofind.in", "62.72.57.148"]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
