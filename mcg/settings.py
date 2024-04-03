@@ -52,13 +52,15 @@ INSTALLED_APPS = [
     'shop',
     'autofind',
     'diagnostic',
-    'notification'
+    'notification',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -100,6 +102,29 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+# 'http://mcgautofind.in',
+#     'http://localhost:58448',
+#     'http://localhost:63957',
+# )
+
+CORS_ALLOW_METHODS = (
+    'GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'
+)
+
+CORS_ALLOW_HEADERS = ('*')
+# CORS_ALLOWED_ORIGINS = [
+#     # 'http://192.168.1.6:8000',
+#     'http://mcgautofind.in',
+#     'http://localhost:58448',
+#     'http://localhost:63957',
+# ]
+#
+# CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -161,7 +186,7 @@ SALT_KEY = env("SALTKEY")
 
 CF_CLIENT_ID = env("CF_CLIENT_ID")
 CF_CLIENT_SECRET = env("CF_CLIENT_SECRET")
-
+#
 SECURE_HSTS_SECONDS = 1
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
