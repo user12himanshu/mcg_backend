@@ -144,7 +144,7 @@ body {
     background-size: cover;
     position: relative;
     /* width: 40% !important; */
-    background-image: url(../../images/img1.png);
+    background-image: url('static/images/img1.png');
     background-repeat: no-repeat;
 }
 
@@ -318,7 +318,7 @@ body {
     align-items: center;
     flex-direction: column;
     text-align: start !important;
-    background-image: url(../../images/img2.png);
+    background-image: url(static/images/img2.png);
 }
 
 .s2-img h3 {
