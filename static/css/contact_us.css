@@ -1,0 +1,337 @@
+.contact1 {
+    margin: 2rem 0;
+
+}
+
+.contact-input h1 {
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.contact-input h5 {
+    font-size: 1.3rem;
+}
+
+.input-section {
+    margin: 1.5rem 0 .5rem;
+    text-align: start;
+}
+
+.input-op {
+    width: 80%;
+    border-radius: 15px;
+    border: none;
+    background: #FFF4CC;
+    height: fit-content;
+    padding: .5rem 1rem;
+    margin: 1rem 0;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.send-btn {
+    padding: .2rem 1rem !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.contact-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.other-contact {
+ margin: 1.5rem 0;
+
+}
+
+.other-contact h3 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.other-contact-op {
+    display: flex;
+    width: fit-content;
+    text-align: start;
+    margin: 2rem 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+    align-items: center;
+}
+
+.other-contact-op img{
+    margin-right: 2rem;
+}
+
+.mail {
+    height: 1.3rem;
+}
+
+.phone {
+    height: 1.4rem;
+}
+
+.location {
+    height: 1.8rem;
+}
+
+.other-contact-op a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.mob-img {
+    display: none;
+}
+
+.mob-search {
+    display: none;
+}
+
+.mob-navbar {
+    display: none;
+}
+
+.mobile-nav {
+    display: none;
+}
+
+@media (min-width: 750px) and (max-width: 980px) {
+    .contact-img {
+        display: none;
+    }
+
+    .contact-input h5 {
+        font-size: 1rem;
+        width: 50%;
+    }
+
+    .mob-img {
+        display: block;
+        position: absolute;
+        height: 12rem;
+        top: 5rem;
+        right: 5rem;
+    }
+
+    .input-op {
+        width: 100%;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 480px) {
+    nav {
+        display: none !important;
+    }
+
+    .mobile-nav {
+        width: 100%;
+        display: flex;
+        height: fit-content;
+        padding: 1rem;
+        background-color: #FFCB05;
+        justify-content: end;
+        align-items: center;
+    }
+
+       .mobile-nav img {
+    height: 5rem;
+    /* position: absolute; */
+    background-color: transparent;
+    border-radius: 0;
+}
+
+    .mob-search {
+        display: flex;
+        background-color: #FFFFFF;
+        padding: .5rem !important;
+        width: 12rem;
+        justify-content: space-around;
+        border-radius: 10px;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .mob-search input {
+        width: 9.5rem;
+        border: none !important;
+        outline: none !important;
+        font-size: .8rem;
+    }
+
+    .mob-search span img {
+        height: 1rem;
+    }
+
+    .search-div {
+        width: 90%;
+    }
+
+    .search-div h1 {
+        font-size: 1rem;
+    }
+
+    .mob-navbar {
+        bottom: 0;
+        padding: .5rem 1rem !important;
+        width: 100%;
+        position: fixed;
+        height: fit-content;
+        display: flex;
+        background-color:#FFCB05;
+        justify-content: space-between;
+        z-index: 1;
+    }
+
+    .mob-navbar button {
+        background: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    .s1 {
+        height: fit-content;
+        padding: 1rem 0;
+    }
+    .contact-img {
+        display: none;
+    }
+
+    .contact-input h5 {
+        font-size: 1rem;
+        width: 50%;
+    }
+    .mob-img {
+        display: block;
+        position: absolute;
+        height: 8rem;
+        top: 11rem;
+        right: 0rem;
+    }
+
+    .input-op {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .other-contact-op a {
+        font-size: 1rem;
+    }
+
+    .other-contact-op p {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 700px) {
+    nav {
+        display: none !important;
+    }
+
+    .mobile-nav {
+        width: 100%;
+        display: flex;
+        height: fit-content;
+        padding: 1rem;
+        background-color: #FFCB05;
+        justify-content: end;
+        align-items: center;
+    }
+
+       .mobile-nav img {
+    height: 5rem;
+    /* position: absolute; */
+    background-color: transparent;
+    border-radius: 0;
+}
+
+    .mob-search {
+        display: flex;
+        background-color: #FFFFFF;
+        padding: .5rem !important;
+        width: 15rem;
+        justify-content: space-around;
+        border-radius: 10px;
+        align-items: center;
+        height: fit-content;
+    }
+
+    .mob-search input {
+        width: 9.5rem;
+        border: none !important;
+        outline: none !important;
+        font-size: .8rem;
+    }
+
+    .mob-search span img {
+        height: 1.2rem;
+    }
+
+    .search-div {
+        width: 90%;
+    }
+
+    .search-div h1 {
+        font-size: 1rem;
+    }
+
+    .mob-navbar {
+        bottom: 0;
+        padding: .5rem 1rem !important;
+        width: 100%;
+        position: fixed;
+        height: fit-content;
+        display: flex;
+        background-color:#FFCB05;
+        justify-content: space-between;
+        z-index: 1;
+    }
+
+    .mob-navbar button {
+        background: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    .s1 {
+        height: fit-content;
+        padding: 1rem 0;
+    }
+    .contact-img {
+        display: none;
+    }
+
+    .contact-input h5 {
+        font-size: 1rem;
+        width: 50%;
+    }
+    .mob-img {
+        display: block;
+        position: absolute;
+        height: 8rem;
+        top: 11rem;
+        right: 0rem;
+    }
+
+    .input-op {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .other-contact-op a {
+        font-size: 1rem;
+    }
+
+    .other-contact-op p {
+        font-size: 1rem;
+    }
+}

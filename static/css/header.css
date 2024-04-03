@@ -1,0 +1,59 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Raleway', sans-serif !important;
+}
+
+.main-nav{
+    background-color: #FFCB05;
+    height: 6.5rem;
+}
+.nav-link{
+    color: black;
+    margin-left: 12px;
+}
+.main-nav div{
+
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.navbar-brand img{
+    height: 2rem;
+
+    left: 14.4rem;
+
+}
+.nav-logo{
+
+
+    right: 10rem;
+    margin-top: -0.6rem;
+    margin-bottom: -1rem;
+}
+.nav-logo img{
+    height: 7rem;
+}
+.search-box{
+    border-radius: 5rem !important;
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+.search-button img{
+   height: 1.3rem;
+}
+
+@media (min-width: 750px) and (max-width: 980px) {
+    .nav-link {
+        font-size: .9rem !important;
+        margin: 0 !important;
+    }
+
+    .search {
+        width: 13rem !important;
+        margin-left: 1rem;
+    }
+
+    .nav-logo img {
+        height: 5rem;
+    }
+}

@@ -1,0 +1,161 @@
+footer{
+    margin: 2rem auto .5rem !important;
+    width: 90%;
+}
+
+hr {
+    border: 1px solid #000000 !important;
+}
+
+.foot-div {
+    padding: 1rem 0 !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-d1{
+    text-align:justify;
+    width: 20%;
+}
+
+.foot-d1 img {
+    height: 10rem;
+}
+
+.foot-icon {
+    margin: 1rem 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.foot-icon img {
+    height: 1rem;
+}
+
+.foot-d2 {
+    align-self: end;
+    height: fit-content;
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.foot-d2 h5 {
+    font-weight: 600;
+    margin-bottom: 1.2rem !important;
+}
+
+.foot-d2-div p{
+    margin: 1rem 0 !important;
+    font-weight: 600;
+}
+
+.foot-d2-div a {
+    margin: 1rem 0 !important;
+    font-weight: 600;
+    text-decoration:none;
+    color: #212529;
+}
+
+.foot-d3 {
+    align-self: end;
+    height: fit-content;
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.foot-d3 h5 {
+    font-weight: 600;
+    margin-bottom: 1.5rem !important;
+}
+
+.foot-d3-div p{
+    margin: 1rem 0 !important;
+    font-weight: 600;
+}
+
+.contact-div {
+    display: flex;
+    align-items: center;
+    margin: 5px 0px;
+}
+
+.email {
+    height: 1.2rem !important;
+}
+
+.contact-div img {
+    height: 1.5rem;
+    margin-right: 1rem !important;
+}
+
+.copyright {
+    font-size: .8rem;
+    font-weight: 600;
+    margin-top: 1rem !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.copyright-d a {
+    font-size: .8rem;
+    text-decoration: none;
+    color: black;
+}
+
+@media (min-width: 750px) and (max-width: 980px) {
+    .foot-d1 img {
+        height: 6rem;
+    }
+
+    .foot-d1 p {
+        font-size: .8rem;
+    }
+
+    .foot-icon img {
+        height: 0.8rem;
+    }
+
+    .foot-d2 {
+        width: 15%;
+    }
+
+.contact-div {
+    margin: 2px 0px;
+}
+
+    .foot-d2 h5 {
+        margin-bottom: 1rem !important;
+        font-size: 1.1rem !important;
+    }
+
+    .foot-d2-div p {
+        font-size: .7rem !important;
+    }
+
+    .foot-d3 h5 {
+        font-size: 1.2rem;
+    }
+
+    .foot-d3-div p {
+        font-size: .7rem;
+    }
+
+    .email {
+        height: 1rem !important;
+    }
+
+    .contact-div img {
+        height: 1.2rem;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 700px) {
+    footer {
+        display: none !important;
+    }
+}

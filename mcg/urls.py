@@ -11,6 +11,7 @@ urlpatterns = [
     path('refund-policy/', refund_policy),
     path('shipping-policy/', shipping_policy),
     path('contact-us/', contact_us),
+    path('', index),
     path('admin/', admin.site.urls),
     path('users/', include('user.urls')),
     path('shop/', include('shop.urls')),

@@ -153,8 +153,8 @@ REST_KNOX = {
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media/')
-MEDIA_URL = '/static/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/' if DEBUG else 'static/media/')
+MEDIA_URL = '/media/' if DEBUG else '/static/media/'
 
 MERCHANT_ID = env("MERCHANTID")
 SALT_KEY = env("SALTKEY")
