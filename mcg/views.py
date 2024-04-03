@@ -23,6 +23,10 @@ def shipping_policy(request):
     return render(request, 'shipping.html')
 
 
+def index(request):
+    return render(request, 'index.html')
+
+
 def contact_us(request):
     if request.method == 'POST':
         form = EnquiryForm(request.POST)

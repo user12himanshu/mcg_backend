@@ -1,0 +1,746 @@
+{% load static %}
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>MCG Autofind</title>
+   <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+   <link rel="stylesheet" href="{% static 'css/header.css' %}">
+   <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+   <link rel="stylesheet" href="{% static 'css/contact_us.css' %}">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&amp;display=swap"
+      rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+      integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+   <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+      integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer">
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+      integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body cz-shortcut-listen="true">
+   <div class=" spinner-border text-warning" role="status" id="loader"
+      style="position: absolute; top: 50%; left: 50%; display: none;">
+      <span class="visually-hidden">Loading...</span>
+   </div>
+   <div id="main_wrapper" style="display: block;">
+      <!--  -->
+      <section class="s1 container-fluid row">
+         <div class="s1-d1 col-lg-6 col-md-6 col-sm-6">
+            <nav class="s1-nav navbar navbar-expand-md bg-body-tertiary">
+               <div class="s1-nav-container container-fluid">
+                  <!-- <a class="navbar-brand" href="#"><img src="./images/user.png" alt=""></a> -->
+                  <div class="dropdown">
+
+                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                     </button>
+
+                  </div>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                     aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                     <ul class="s1-nav-ul navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                           <a class="nav-link active" aria-current="page" href="https://mcgautofind.in/">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                           <a class="nav-link" aria-current="page"
+                              href="/">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="/contact-us/">Contact Us</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="/privacy-policy/">Privacy Policy</a>
+                        </li>
+                         <li class="nav-item">
+                           <a class="nav-link" href="/terms-conditions/">Terms & Conditions</a>
+                        </li>
+                         <li class="nav-item">
+                           <a class="nav-link" href="/return-policy/">Return Policy</a>
+                        </li>
+                         <li class="nav-item">
+                           <a class="nav-link" href="/refund-policy/">Refund Policy</a>
+                        </li>
+                         <li class="nav-item">
+                           <a class="nav-link" href="/shipping-policy/">Shipping Policy</a>
+                        </li>
+
+                     </ul>
+                     <!-- <form class="d-flex" role="search">
+                        <div class="s1-nav-input">
+                           <input class="s1-nav-text form-control me-2 search_query_top ui-autocomplete-input"
+                              type="search" placeholder="Find the perfect part" aria-label="Search"
+                              id="search_query_top" autocomplete="off"><span role="status" aria-live="polite"
+                              class="ui-helper-hidden-accessible"></span>
+                           <button class="s1-nav-btn btn btn-outline-success" type="submit"><img
+                                 src="https://mcgautofind.com/images/search.png" alt=""></button>
+                        </div>
+                     </form> -->
+                  </div>
+               </div>
+            </nav>
+            <!-- <div class="mob-search">
+               <input type="text" class="search_query_top ui-autocomplete-input" placeholder="Find the perfect part"
+                  autocomplete="off"><span role="status" aria-live="polite"
+                  class="ui-helper-hidden-accessible"></span><span><img src="./images/search.png" alt=""></span>
+            </div> -->
+            <div class="search-div">
+               <h1>About Us</h1>
+                <label class="lable-s1" for="suburb">MCG AutoFind is a private limited company of India, whose objective is to easily connect the leading experts in various fields of India with the general public of the country.</label>
+            </div>
+         </div>
+         <div class="s1-d2 col-lg-6 col-md-6 col-sm-6">
+            <img src="./images/logo.png" alt="">
+            <!-- <div class="expert-button">
+               <button class="btn expert-btn"><a class="expert-btn-link"
+                     href="https://mcgautofind.com/seller_auth/login"> Expert Login</a></button>
+            </div> -->
+         </div>
+      </section>
+
+      <!-- 
+      <section class="ad container-fluid">
+         <h3>ADVERTISEMENT AREA</h3>
+      </section> -->
+      <!-- <section class="call container-fluid">
+         <div class="call-div">
+            <h3>Want to talk to an expert ?</h3>
+            <a href="https://mcgautofind.com/expert_call?id=1"><button class="btn-s1-3 btn btn-primary">Voice
+                  Call</button></a>
+            <a href="https://mcgautofind.com/expert_call?id=2"><button class="btn-s1-3 btn btn-primary">Video
+                  Call</button></a>
+         </div>
+      </section> -->
+      <section class="s2 container-fluid">
+         <div class="s2-row row">
+            <div class="s2-img col-lg-6 col-md-6 col-sm-6">
+               <h3>Upgrade your ride with our top-quality vehicle accessories with 4 easy steps!</h3>
+               <div class="btn-div">
+               </div>
+            </div>
+            <div class="s2-data col-lg-6 col-md-6 col-sm-6 row">
+               <div class="steps col-lg-6">
+                  <h1>01</h1>
+                  <h4>ADD LOCATION</h4>
+               </div>
+               <div class="steps col-lg-6">
+                  <h1>02</h1>
+                  <h4>SELECT PRODUCTS</h4>
+               </div>
+               <div class="steps col-lg-6">
+                  <h1>03</h1>
+                  <h4>PLACE ORDER</h4>
+               </div>
+               <div class="steps col-lg-6">
+                  <h1>04</h1>
+                  <h4>CONTACT SELLER FOR DELIVERY</h4>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="testimonials-section container">
+         <h3>Testimonials</h3>
+         <div class="owl-carousel owl-theme owl-loaded owl-drag">
+
+
+
+
+
+            <div class="owl-stage-outer">
+               <div class="owl-stage"
+                  style="transform: translate3d(-1419px, 0px, 0px); transition: all 0.25s ease 0s; width: 3075px;">
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>This was the easiest dealership I have worked with. I was in and out in 2 hours. MCG was
+                           efficient but also make sure that everything was covered at the best price in town. I
+                           recommended anyone to go see MCG</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>I had a great experience at MCG. Found the exact car I wanted in tip-top shape at a fair
+                           price with excellent customer service and attention-to-detail. I highly recommend this
+                           dealership.</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Smooth transaction and very helpful staff made my first car buying experience easy. MCG and
+                           the crew have given me their full attention to all my car needs. Thanks again for the great
+                           help!</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Amazing service at the service department of MCG. He took care of our cars and provided 5
+                           star service at every step.</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Ask for MCG, he is the best! He is amazing and makes the process really smooth. He goes above
+                           and beyond for his customers and tries to help as much as possible. Great service and they
+                           know they’re stuff.
+
+                        </p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>This was the easiest dealership I have worked with. I was in and out in 2 hours. MCG was
+                           efficient but also make sure that everything was covered at the best price in town. I
+                           recommended anyone to go see MCG</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item active" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>I had a great experience at MCG. Found the exact car I wanted in tip-top shape at a fair
+                           price with excellent customer service and attention-to-detail. I highly recommend this
+                           dealership.</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item active" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Smooth transaction and very helpful staff made my first car buying experience easy. MCG and
+                           the crew have given me their full attention to all my car needs. Thanks again for the great
+                           help!</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item active" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Amazing service at the service department of MCG. He took care of our cars and provided 5
+                           star service at every step.</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned active" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Ask for MCG, he is the best! He is amazing and makes the process really smooth. He goes above
+                           and beyond for his customers and tries to help as much as possible. Great service and they
+                           know they’re stuff.
+
+                        </p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>This was the easiest dealership I have worked with. I was in and out in 2 hours. MCG was
+                           efficient but also make sure that everything was covered at the best price in town. I
+                           recommended anyone to go see MCG</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>I had a great experience at MCG. Found the exact car I wanted in tip-top shape at a fair
+                           price with excellent customer service and attention-to-detail. I highly recommend this
+                           dealership.</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+                  <div class="owl-item cloned" style="width: 226.5px; margin-right: 10px;">
+                     <div class="owl-data item">
+                        <p>Smooth transaction and very helpful staff made my first car buying experience easy. MCG and
+                           the crew have given me their full attention to all my car needs. Thanks again for the great
+                           help!</p>
+                        <p>⭐⭐⭐⭐</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i
+                     class="fa fa-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i
+                     class="fa fa-angle-right"></i></button></div>
+            <div class="owl-dots disabled"></div>
+         </div>
+      </section>
+{#      <section class="s3 container-fluid">#}
+{#         <div class="s3-row row">#}
+{#            <div class="s3-d1 col-lg-6 col-md-7">#}
+{#               <div class="s3-data">#}
+{#                  <h3>Enquire /Contact Us</h3>#}
+{#                  <form id="contact_us_form">#}
+{#                     <input type="text" class="s3-input" name="name" placeholder="Name">#}
+{#                     <input type="email" class="s3-input" name="email" placeholder="Email">#}
+{#                     <input type="number" class="s3-input" name="mobile" placeholder="Mobile Number">#}
+{#                     <input type="text" class="s3-input" name="location" placeholder="Location">#}
+{#                     <textarea class="s3-text-area" cols="30" rows="10" placeholder="Type your message here"#}
+{#                        name="query"></textarea>#}
+{#                     <button class="s3-btn btn btn-primary" type="submit">Send Inquiry</button>#}
+{#                  </form>#}
+{#               </div>#}
+{#            </div>#}
+{#            <div class="s3-d1-img col-lg-6 col-md-5">#}
+{#               <a class="btt" href="#"><img src="./images/back_to_top.png" alt=""></a>#}
+{#            </div>#}
+{#         </div>#}
+{#      </section>#}
+      <!-- <section class="ad ad-margin container-fluid">
+         <h3>ADVERTISEMENT AREA</h3>
+      </section> -->
+
+      <div class="mob-navbar">
+         <button class="btn nav-btn nav-active">
+            <a href="https://mcgautofind.com/">
+               <img src="https://mcgautofind.com/images/mob-navbar/home.png" alt="">
+            </a>
+         </button>
+         <button class="btn nav-btn">
+            <a href="https://mcgautofind.com/choose_location">
+               <img src="https://mcgautofind.com/images/mob-navbar/products.png" alt="">
+
+            </a>
+         </button>
+         <button class="btn nav-btn">
+            <a href="https://mcgautofind.com/expert_call?id=0">
+               <img src="https://mcgautofind.com/images/mob-navbar/expert_call.png" alt="">
+
+            </a>
+         </button>
+         <button class="btn nav-btn">
+            <a href="https://mcgautofind.com/mobile_cart">
+               <img src="https://mcgautofind.com/images/cart-1.png" alt="">
+               <span class="heart-count" id="mobile_cart_item_count">0</span>
+            </a>
+         </button>
+         <button class="btn nav-btn">
+            <a href="javascript:void(0);" onclick="logpopup()">
+               <img src="https://mcgautofind.com/images/mob-navbar/user.png" alt="">
+
+            </a>
+         </button>
+
+      </div>
+      <div class="offcanvas offcanvas-end text-bg-dark canvas" data-bs-backdrop="static" tabindex="-1"
+         id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+         <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="staticBackdropLabel">CART <img class="cart-in-canvas"
+                  src="images/cart-yellow.png" alt=""></h5>
+            <button type="button" class="close" data-bs-dismiss="offcanvas" aria-label="Close">
+               <img src="https://mcgautofind.com/images/cart-close.png" alt="">
+            </button>
+         </div>
+         <div class="offcanvas-body">
+            <div>
+               <hr>
+               <div id="cart-item-details">
+                  <div>No Data</div>
+               </div>
+
+               <div class="cart-button">
+                  <button type="button" onclick="order_booking()" class="btn proceed"
+                     style="background-color: #FFCB05;">Proceed to Booking</button><br>
+                  <button type="button" class="btn mt-3 continue" style="background-color: #FF396A;"><a
+                        style="text-decoration:none;color:#fff" href="https://mcgautofind.com/choose_location">or
+                        Continue Shopping</a>
+                  </button>
+               </div>
+
+            </div>
+         </div>
+      </div>
+      <!-- <div class="mob-navbar">
+   <button class="btn nav-btn">
+      <a href="https://mcgautofind.com/">
+         <img src="https://mcgautofind.com/images/mob-navbar/home.png" alt="">
+      </a>
+   </button>
+   <button class="btn nav-btn">
+      <a href="https://mcgautofind.com/choose_location">
+         <img src="https://mcgautofind.com/images/mob-navbar/products.png" alt="">
+
+      </a>
+   </button>
+   <button class="btn nav-btn">
+      <a href="https://mcgautofind.com/expert_call?id=0">
+         <img src="https://mcgautofind.com/images/mob-navbar/expert_call.png" alt="">
+
+      </a>
+   </button>
+   <button class="btn nav-btn">
+      <a href="https://mcgautofind.com/mobile_cart">
+         <img src="https://mcgautofind.com/images/cart-1.png" alt="">
+         <span class="heart-count" id="mobile_cart_item_count">0</span>
+      </a>
+   </button>
+   <button class="btn nav-btn">
+      <a href="javascript:void(0);" onclick="logpopup()">
+         <img src="https://mcgautofind.com/images/mob-navbar/user.png" alt="">
+
+      </a>
+   </button>
+
+</div> -->
+
+{#      <div class="modal fade user-profile-modal pe-0" id="userprofileModal" aria-hidden="true"#}
+{#         aria-labelledby="profileModalLabel" tabindex="-1">#}
+{#         <div class="modal-dialog modal-dialog-centered">#}
+{#            <div class="modal-content">#}
+{#               <div class="profile-modal-content">#}
+{#                  <ul class="list-group">#}
+{#                     <a href="https://mcgautofind.com/auth/login" class="text-decoration-none">#}
+{#                        <li class="list-group-item active">Login</li>#}
+{#                     </a>#}
+{#                     <a href="https://mcgautofind.com/auth/register" class="text-decoration-none">#}
+{#                        <li class="list-group-item">Sign-Up</li>#}
+{#                     </a>#}
+{#                  </ul>#}
+{#               </div>#}
+{#            </div>#}
+{#         </div>#}
+{#      </div>#}
+      <footer>
+         <hr>
+         <div class="foot-div">
+            <div class="foot-d1">
+               <img src="https://mcgautofind.com/images/logo.png" alt="">
+               <p>MCG AutoFind is a private limited company of India, whose objective is to easily connect the leading
+                  experts in various fields of India with the general public of the country.</p>
+               <div class="foot-icon">
+                  <img src="https://mcgautofind.com/images/social/Facebook.png" alt="">
+                  <img src="https://mcgautofind.com/images/social/Twitter.png" alt="">
+                  <img src="https://mcgautofind.com/images/social/Instagram.png" alt="">
+                  <img src="https://mcgautofind.com/images/social/YouTube.png" alt="">
+                  <img src="https://mcgautofind.com/images/social/LinkedIn.png" alt="">
+               </div>
+            </div>
+            <!-- <div class="foot-d2">
+               <h5>Product</h5>
+               <div class="foot-d2-div">
+                  <p>Features</p>
+                  <p>Pricing</p>
+                  <p>Case Studies</p>
+                  <p>Reviews</p>
+                  <p>Updates</p>
+               </div>
+            </div> -->
+            <div class="foot-d2">
+               <h5>Company</h5>
+               <div class="foot-d2-div">
+                  <p><a href="/">About</a></p>
+                  <p><a href="/contact-us/">Contact us</a></p>
+                  <p><a href="/return-policy/">Return Policy</a></p>
+                  <p><a href="/refund-policy/">Refund Policy</a></p>
+                  <p><a href="/shipping-policy/">Shipping Policy</a></p>
+               </div>
+            </div>
+            <!-- <div class="foot-d2">
+               <h5>Support</h5>
+               <div class="foot-d2-div">
+                  <p>Getting Started</p>
+                  <p>Help center</p>
+                  <p>Server status</p>
+                  <p>Report a bug</p>
+                  <p>Chat support</p>
+               </div>
+            </div> -->
+            <div class="foot-d3">
+               <h5>Contact us</h5>
+               <div class="foot-d3-div">
+                  <div class="contact-div">
+                     <img class="email" src="https://mcgautofind.com/images/foot/Email.png" alt="">
+                     <p>mcgautofind@gmail.com</p>
+                  </div>
+                  <div class="contact-div">
+                     <img src="https://mcgautofind.com/images/foot/phone.png" alt="">
+                     <p>6261655039</p>
+                  </div>
+                  <div class="contact-div">
+                     <img src="https://mcgautofind.com/images/foot/Mark.png" alt="">
+                     <p>House Number 161, Amarpur, Dinodri, 481880</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <hr>
+         <div class="copyright">
+            <p>Copyright © 2023 MCG AutoFind</p>
+            <div class="copyright-d">
+               <p>All Rights Reserved | <a href="/terms-conditions/">Terms and Conditions</a> | <a href="/privacy-policy/">Privacy Policy</a></p>
+            </div>
+         </div>
+      </footer>
+   </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+      integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <!-- <script>
+    document.onreadystatechange = function() {
+      if (document.readyState !== "complete") {
+         document.querySelector("body").style.visibility = "hidden";
+         document.querySelector("#loader").style.visibility = "visible";
+      } else {
+         document.querySelector("#loader").style.display = "none";
+         document.querySelector("body").style.visibility = "visible";
+      }
+   };
+</script> -->
+   <!-- <script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyB75BQfntabfdGg1hpZSUdQy3F9RwUh3bo" defer></script> -->
+   <script src="https://mcgautofind.com/assets/js/index.js"></script>
+   <script src="https://mcgautofind.com/assets/js/jquery-ui.js"></script>
+   <script src="https://mcgautofind.com/assets/js/jquery-migrate-3.0.0.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
+      window.onload = (event) => {
+         $("#loader").css('display', 'none')
+         $('#main_wrapper').css('display', 'block')
+      };
+
+      // function logpopup() {
+      //    $('#userprofileModal').modal('show');
+      // }
+
+      // function cartpopup() {
+      //    $('#staticBackdrop').modal('show');
+      // }
+      var baseUrl = 'https://mcgautofind.com/';
+      let sid = ''
+      // get_wish_list_count();
+      // get_cart_item_count();
+      // get_item_cart();
+
+      function getCities(val) {
+         console.log($(val).val());
+         $('#cities').empty();
+         state_id = $(val).val();
+         $.ajax({
+            type: "post",
+            url: baseUrl + 'user/map/get_all_cities',
+            data: {
+               state_id: state_id
+            },
+            dataType: "json",
+            success: function (response) {
+               if (response.status == 1) {
+                  $('#cities').html(response.html);
+               } else {
+                  $('#cities').html(`<option value="">select cities</option>`);
+               }
+            }
+         });
+      }
+
+      // function get_wish_list_count() {
+      //    $.ajax({
+      //       type: "post",
+      //       url: baseUrl + 'wish_list_count',
+      //       data: {},
+      //       dataType: "json",
+      //       success: function(response) {
+      //          if (response.status == 1) {
+      //             $('#wish_list_count').text(response.total_count);
+      //          } else {
+      //             $('#wish_list_count').text(0);
+      //          }
+      //       }
+      //    });
+      // }
+
+      // function get_cart_item_count() {
+      //    $.ajax({
+      //       type: "post",
+      //       url: baseUrl + 'cart_item_count',
+      //       data: {},
+      //       dataType: "json",
+      //       success: function(response) {
+      //          if (response.status == 1) {
+      //             $('#cart_item_count').text(response.total_count);
+      //             $('#mobile_cart_item_count').text(response.total_count);
+
+      //          } else {
+      //             $('#cart_item_count').text(0);
+      //          }
+      //       }
+      //    });
+      // }
+
+      // function add_to_cart(a) {
+      //    $.ajax({
+      //       url: baseUrl + 'user/product_list/add_to_cart',
+      //       method: 'POST',
+      //       data: {
+      //          a: a
+      //       },
+      //       dataType: 'json',
+      //       success: function(response) {
+      //          get_item_cart();
+      //          get_cart_item_count();
+
+      //       },
+      //       error: function(xhr, status, error) {
+      //          console.log(error);
+      //       }
+      //    });
+      // }
+
+      // function get_item_cart() {
+      //    $.ajax({
+      //       url: baseUrl + 'user/product_list/get_item_cart',
+      //       method: 'POST',
+      //       data: {},
+      //       dataType: 'json',
+      //       success: function(response) {
+      //          let markup = "";
+      //          if (response.status == 1) {
+      //             total_amount = 0;
+      //             response.data.forEach(element => {
+      //                cid = element.id;
+      //                product_image = element.product_image;
+      //                total_amount += parseInt(element.total_amount);
+
+      //                markup += '<div class="cart-details mt-3"><div><img class="card-img-top card-img" src="' + element.product_image + '" alt=""></div><div>' + element.product_name + '<div class="row "><div class="col-lg-3 col-md-3 item-count"><button id="' + cid + '" data-other-attr="2" onclick="cart_item_qty_update(this)">-</button></div><div class="col-lg-6 col-md-3 item-count">' + element.qty + '</div><div class="col-lg-3 col-md-3 item-count"><button id="' + cid + '" data-other-attr="1"  onclick="cart_item_qty_update(this)">+</button></div></div></div><div>Rs.' + element.price + '</div><div><button type="button" class="remove-product"><img src="./images/remove-product.png" alt="" id="' + cid + '" onclick="cart_item_delete(this.id,this.row_id)" row_id="'+element.row_id+'"></button></div></div>';
+
+
+
+      //             });
+      //             markup += '<div class="cart-total"><hr><div class="total-elements"><h6>Shipping</h6><p>Calculated a Checkout</p></div><div class="total-elements"><h4>Subtotal</h4><h5>₹ ' + total_amount + '</h5></div></div>';
+      //          } else {
+      //             markup += '<div>No Data</div>'
+      //          }
+      //          $('#cart-item-details').html(markup);
+      //       },
+      //       error: function(xhr, status, error) {
+      //          console.log(error);
+      //       }
+      //    });
+      // }
+
+      // function cart_item_delete(a,row_id) {
+      //    $.ajax({
+      //       url: baseUrl + 'user/product_list/delete_item_cart',
+      //       method: 'POST',
+      //       data: {
+      //          a: a,
+      //          row_id:row_id,
+      //       },
+      //       dataType: 'json',
+      //       success: function(response) {
+      //          get_item_cart();
+      //          get_cart_item_count();
+      //          alert(response.message);
+      //       },
+      //       error: function(xhr, status, error) {
+      //          console.log(error);
+      //       }
+      //    });
+      // }
+
+      // function cart_item_qty_update(cid) {
+      //    var type = cid.getAttribute('data-other-attr');
+      //    var a = cid.getAttribute('id');
+      //    alert(a);
+      //    $.ajax({
+      //       url: baseUrl + 'user/product_list/cart_item_qty_update',
+      //       method: 'POST',
+      //       data: {
+      //          a: a,
+      //          type: type
+      //       },
+      //       dataType: 'json',
+      //       success: function(response) {
+      //          get_item_cart();
+      //          get_cart_item_count();
+
+      //       },
+      //       error: function(xhr, status, error) {
+      //          console.log(error);
+      //       }
+      //    });
+      // }
+
+      // function add_wish_list(a) {
+      //    $.ajax({
+      //       url: baseUrl + 'add_wish_list',
+      //       method: 'POST',
+      //       data: {
+      //          a: a
+      //       },
+      //       dataType: 'json',
+      //       success: function(response) {
+      //          alert(response.message);
+      //          get_wish_list_count();
+      //       },
+      //       error: function(xhr, status, error) {
+      //          console.log(error);
+      //       }
+      //    });
+      // }
+
+      // $('.search_query_top').autocomplete({
+      //    source: baseUrl + 'get_auto_product_list',
+      //    minLength: 1,
+      //    width: '900px',
+      //    select: function(event, ui) {
+      //       var p_id = ui.item.id;
+      //       var value = ui.item.value;
+      //       var p_url = ui.item.p_url;
+      //       location.href = p_url;
+      //    }
+      // });
+
+      /*-----------------Get Location-------------------------*/
+      function getLocation() {
+         // alert('hii')
+         if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+         } else {
+            //x.innerHTML = "Geolocation is not supported by this browser.";
+            alert("Geolocation is not supported by this browser.");
+         }
+      }
+
+      function showPosition(position) {
+         Latitude = position.coords.latitude;
+         Longitude = position.coords.longitude;
+         window.location.href = "https://mcgautofind.com/map?lat=" + Latitude + '&long=' + Longitude;
+      }
+
+      // $(document).on('click', '.nav-btn', function() {
+      //    $('.nav-btn').removeClass('nav-active')
+      //    $(this).addClass('nav-active')
+      // })
+   </script>
+   <ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="ui-id-1" tabindex="0"
+      style="display: none;"></ul>
+   <ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="ui-id-2" tabindex="0"
+      style="display: none;"></ul>
+   <script src="https://mcgautofind.com/assets/js/utility.js"></script>
+
+
+
+</body>
+
+</html>
