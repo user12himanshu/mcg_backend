@@ -9,7 +9,7 @@ admin.site.register(ExpertCategory)
 admin.site.register(ExpertSubcategory)
 admin.site.register(ShopSubscription)
 admin.site.register(ShopSubscriptionCharges)
-admin.site.register(DiagnosticSubscription)
+
 admin.site.register(DiagnosticSubscriptionCharges)
 admin.site.register(Enquiry)
 
@@ -18,4 +18,10 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields = ['phone', 'email']
 
 
+class CustomDiagnosticSubscriptionAdmin(admin.ModelAdmin):
+    search_fields = ['user__phone']
+    list_display = ('user',)
+
+
+admin.site.register(DiagnosticSubscription, CustomDiagnosticSubscriptionAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
